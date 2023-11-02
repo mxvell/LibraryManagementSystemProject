@@ -5,7 +5,7 @@
     <title>Show</title>
 </head>
 <body>
- <p th:text="${book.getNameOfBook() + ', ' + book.getAuthor() + ', ' + book.getReleaseYear()}">VALUE</p>
+ <p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
  <div th:if="${owner}">
      <span>Book now in </span> <span th:text="${owner.getFullName()}">Person name</span>
      <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}">

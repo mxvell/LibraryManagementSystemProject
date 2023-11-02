@@ -6,14 +6,15 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ua.prachyk.config.dao.PersonDAO;
 import ua.prachyk.config.models.Person;
+import ua.prachyk.config.services.PersonService;
 
 @Component
 public class PersonValidator implements Validator {
-    private final PersonDAO personDAO;
+    private final PersonService personService;
 
     @Autowired
-    public PersonValidator(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public PersonValidator(PersonService personService) {
+        this.personService = personService;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class PersonValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Person person = (Person) o;
-        if (personDAO.getPersonFullName(person.getFullName()).isPresent()) {
+        if (personService.getPersonByFullName(person.getFullName()).isPresent()) {
             errors.rejectValue("fullName", "", "Person in fullName existing");
         }
     }
